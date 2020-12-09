@@ -274,9 +274,15 @@ namespace g2o {
         if (destOffset > srcOffset) // only upper triangle
           break;
         // destVec += *a * srcVec (according to the sub-vector parts)
-        internal::axpy(*a, srcVec, srcOffset, destVec, destOffset);
+        //internal::axpy(*a, srcVec, srcOffset, destVec, destOffset);
+        // BEGIN SMG
+        internal::template axpy<typename SparseBlockMatrix<MatrixType>::SparseMatrixBlock>(*a, srcVec, srcOffset, destVec, destOffset);
+        // END SMG
         if (destOffset < srcOffset)
-          internal::atxpy(*a, srcVec, destOffset, destVec, srcOffset);
+          //internal::atxpy(*a, srcVec, destOffset, destVec, srcOffset);
+          // BEGIN SMG
+          internal::template atxpy<typename SparseBlockMatrix<MatrixType>::SparseMatrixBlock>(*a, srcVec, destOffset, destVec, srcOffset);
+          // END SMG
       }
     }
   }
