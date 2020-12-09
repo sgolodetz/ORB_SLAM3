@@ -22,7 +22,15 @@
 
 //#define SAVE_TIMES
 
+#ifdef _WINDOWS
+#include <time.h>
+#include <windows.h>
+#endif
+
+#ifdef UNIX
 #include <unistd.h>
+#endif
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string>

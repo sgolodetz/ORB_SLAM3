@@ -28,7 +28,7 @@ elseif(COMPILER_SUPPORTS_CXX0X)
    add_definitions(-DCOMPILEDWITHC0X)
    message(STATUS "Using flag -std=c++0x.")
 else()
-   message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
+   #message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
 endif()
 
 LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules)
@@ -46,6 +46,10 @@ MESSAGE(${OpenCV_VERSION})
 
 find_package(Eigen3 3.1.0 REQUIRED)
 find_package(Pangolin REQUIRED)
+
+# BEGIN SMG
+INCLUDE(${PROJECT_SOURCE_DIR}/cmake/UseBoost.cmake)
+# END SMG
 
 include_directories(
 ${PROJECT_SOURCE_DIR}
@@ -122,9 +126,14 @@ ${EIGEN3_LIBS}
 ${Pangolin_LIBRARIES}
 ${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.so
 ${PROJECT_SOURCE_DIR}/Thirdparty/g2o/lib/libg2o.so
--lboost_serialization
+#-lboost_serialization
 -lcrypto
 )
+
+# BEGIN SMG
+SET(targetname ${PROJECT_NAME})
+INCLUDE(${PROJECT_SOURCE_DIR}/cmake/LinkBoost.cmake)
+# END SMG
 
 
 # Build examples
