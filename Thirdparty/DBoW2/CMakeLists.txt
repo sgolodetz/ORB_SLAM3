@@ -1,8 +1,11 @@
 cmake_minimum_required(VERSION 2.8)
+cmake_policy(SET CMP0091 NEW)
 project(DBoW2)
 
 #set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -Wall  -O3 -march=native ")
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall  -O3 -march=native")
+
+SET(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 
 set(HDRS_DBOW2
   DBoW2/BowVector.h
